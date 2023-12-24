@@ -2,6 +2,7 @@ import { Component, OnDestroy, ViewChild } from '@angular/core';
 import {NgForm} from '@angular/forms'
 import { AuthService,registeruser } from '../auth.service';
 import { Subscription } from 'rxjs';
+import { ActivatedRoute, Router } from '@angular/router';
 @Component({
   selector: 'app-signupmanager',
   templateUrl: './signupmanager.component.html',
@@ -12,7 +13,7 @@ export class SignupmanagerComponent {
   CreateManagerEvent:Subscription;
   IsLoading:boolean=false;
   errArray:string[];
-  constructor(private authService:AuthService){}
+  constructor(private authService:AuthService,private router:Router,private route:ActivatedRoute){}
   
     async OnSubmit(){
      
@@ -22,7 +23,7 @@ export class SignupmanagerComponent {
   this.IsLoading=true;
    this.CreateManagerEvent=this.authService.CreateManager(user).subscribe(res=>{
     this.IsLoading=false;
-  
+  this.router.navigate(['/auth/login'])
    },err =>{
     this.IsLoading=false;
 if(err.error != null){
@@ -37,6 +38,9 @@ if(err.error != null){
   }
   
    ngOnDestroy(): void {
+    if(this.CreateManagerEvent){
      this.CreateManagerEvent.unsubscribe();
+    }
+
    }
 }

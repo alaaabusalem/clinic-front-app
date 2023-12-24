@@ -13,6 +13,12 @@ import {AppRouting} from './app.routing.module';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { LoadingComponent } from './shared/loading/loading.component';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { AuthIntercepters } from './shared/loading/auth.intercepter';
+import { DatePipe } from '@angular/common';
+import {ManagerGuard} from './shared/loading/manager-guard.service'
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -30,9 +36,18 @@ import { LoadingComponent } from './shared/loading/loading.component';
     BrowserModule,
     AppRouting,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthIntercepters,
+      multi: true,
+    },
+    DatePipe,
+    ManagerGuard
+  ],
   bootstrap: [AppComponent],
   exports:[RouterModule]
 })

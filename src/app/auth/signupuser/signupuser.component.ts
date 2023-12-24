@@ -2,6 +2,7 @@ import { Component, OnDestroy, ViewChild } from '@angular/core';
 import {NgForm} from '@angular/forms'
 import { AuthService,registeruser } from '../auth.service';
 import { Subscription } from 'rxjs';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-signupuser',
   templateUrl: './signupuser.component.html',
@@ -12,7 +13,7 @@ export class SignupuserComponent implements OnDestroy{
 CreateUserEvent:Subscription;
 IsLoading:boolean=false;
 errArray:string[];
-constructor(private authService:AuthService){}
+constructor(private authService:AuthService,private router:Router){}
 
   async OnSubmit(){
    
@@ -24,6 +25,7 @@ this.IsLoading=true;
  this.CreateUserEvent=this.authService.CreateUser(user).subscribe(res=>{
   this.IsLoading=false;
   this.form.reset();
+  this.router.navigate(['/auth/login'])
  },err =>{
   this.IsLoading=false;
 
@@ -39,7 +41,10 @@ this.errArray=[];
 }
 
  ngOnDestroy(): void {
-   this.CreateUserEvent.unsubscribe();
+
+  if (this.CreateUserEvent) {
+    this.CreateUserEvent.unsubscribe();  }
+   
    this.form.reset();
  }
 }
