@@ -7,7 +7,7 @@ import { User } from '../user.model';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrl: './login.component.css'
+  styleUrl: '../auth.component.css'
 })
 export class LoginComponent implements OnDestroy,OnInit{
   @ViewChild('form',{ static: true }) form:NgForm;

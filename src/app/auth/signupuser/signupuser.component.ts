@@ -6,7 +6,7 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-signupuser',
   templateUrl: './signupuser.component.html',
-  styleUrl: './signupuser.component.css'
+  styleUrl: '../auth.component.css'
 })
 export class SignupuserComponent implements OnDestroy{
 @ViewChild('form',{ static: true }) form:NgForm;
