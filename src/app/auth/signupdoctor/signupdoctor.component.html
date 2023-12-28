@@ -15,7 +15,7 @@
       <div class="nice-form-group col-md-6 pe-md-2">
         <label for="exampleInputEmail1">Name</label>
         <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
-          placeholder="Enter Your Name" ngModel name="name" required #name="ngModel">
+         ngModel name="name" required #name="ngModel">
         <span *ngIf="!name.valid && name.touched" class="text-danger">
           <span *ngIf="name.errors?.required">Name is required.</span>
           <span *ngIf="name.errors?.duplicated">please choose another Name</span>
@@ -62,7 +62,7 @@
     <div class="row">
       <div class="nice-form-group col-md-2 pe-md-2">
         <label>Gender</label>
-        <select ngModel name="Gender" #Gender required>
+        <select [ngModel]="'male'" name="Gender" #Gender required>
           <option value="female">female</option>
           <option value="male">male</option>
         </select>
@@ -72,7 +72,7 @@
       </div>
       <div class="nice-form-group col-md-6 pe-md-2">
         <label>Department</label>
-        <select ngModel name="DepartmentId" #DepartmentId="ngModel" required>
+        <select  ngModel name="DepartmentId" #DepartmentId="ngModel" required>
           <option *ngFor="let dep of departmentArr" [value]="dep.departmentId">{{dep.departmentName}}</option>
           
         </select>
@@ -90,29 +90,23 @@
       </div>
 
     </div>
+    
     <div class="row g-2">
       <div class="nice-form-group col-md-3 ">
         <label>open Time</label>
-        <input type="time" ngModel name="OpeningTime" #OpeningTime required/>
+        <input type="time" ngModel name="OpeningTime" #OpeningTime="ngModel" required/>
         <span *ngIf="!OpeningTime.valid && OpeningTime.touched" class="text-danger">
           <span *ngIf="OpeningTime.errors?.required">Open Time is required.</span>
         </span>
       </div>
       <div class="nice-form-group col-md-3 ">
         <label>close Time</label>
-        <input type="time" ngModel name="CloseTime" #CloseTime required/>
+        <input type="time" ngModel name="CloseTime" #CloseTime="ngModel" required/>
         <span *ngIf="!CloseTime.valid && CloseTime.touched" class="text-danger">
           <span *ngIf="CloseTime.errors?.required">Close Time is required.</span>
         </span>
       </div>
 
-      <div class="nice-form-group col-md-6">
-        <label>upload your image</label>
-        <input type="file" ngModel name="Imgs" #Imgs required/>
-        <span *ngIf="!Imgs.valid && Imgs.touched" class="text-danger">
-          <span *ngIf="Imgs.errors?.required">Image is required.</span>
-        </span>
-      </div>
     </div>
     <div>
       <div class="row">
@@ -166,4 +160,11 @@
       <button type="submit" class="btn btn-primary" [disabled]="!form.valid">Submit</button>
     </div>
   </form>
+  
+    <div class="nice-form-group col-md-6">
+      <label>upload your image</label>
+      <input type="File" name="ImageFile" id="fileToUpload" (change)="onSubmitPic($event)" accept="image/*">
+      
+    </div>
+  
 </div>

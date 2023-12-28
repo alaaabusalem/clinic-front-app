@@ -31,7 +31,7 @@ ngOnInit(): void {
  
  this.LoginEvent=this.authService.Login(login).subscribe(res=>{
   this.IsLoading=false;
-  this.authService.userEvent.next(res);
+  //this.authService.userEvent.next(res);
   this.form.reset();
    this.router.navigate(['/']);
  },err =>{

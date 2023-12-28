@@ -5,6 +5,7 @@ import { BehaviorSubject, tap,Observable, map } from 'rxjs';
 import { Time } from '@angular/common';
 import { Department } from '../shared/models/Department.model';
 import { Location } from '../shared/models/Location.model';
+import {NgForm,FormControl,FormGroup,Validators} from '@angular/forms'
 
 export interface registeruser {
   name: string;
@@ -19,16 +20,9 @@ export interface registerdoctor {
   password: string;
   Gender:string;
   Specialization:string;
-  Imgs :FormData;
   LocationDetailes:string;
-  OpeningTime: {
-    hour: number;
-    minute: number;
-  };
-  CloseTime: {
-    hour: number;
-    minute: number;
-  };
+  OpeningTime: string;
+  CloseTime:string;
     Description:string;
   fees:string;
   DepartmentId:number;
@@ -57,6 +51,7 @@ LoguotTime:any;
 
     return this.http.post<User>('https://localhost:7197/api/user/login', login).pipe(tap(user => {
       localStorage.setItem('user', JSON.stringify(user));
+      this.userEvent.next(user);
       this.AutoLogout(new Date(user.expired))
 
     }));
@@ -124,12 +119,14 @@ GetDepartments():Observable<Department[]>{
       return res.filter(dep => dep.isDisabal==false)
     }));
   }
-CreatDoctor(doctor:registerdoctor){
-  return this.http.post('https://localhost:7197/api/user/RegisterDoctor', doctor,{
-    headers : new HttpHeaders({
-      'Content-Type': 'multipart/form-data'
-    })
-  });
 
+CreatDoctor(doctor:registerdoctor){
+  return this.http.post<number>('https://localhost:7197/api/user/RegisterDoctor', doctor,);
+}
+StoreTheImage(doctorId:number,formData: FormData){
+  const headers = new HttpHeaders({
+    'Content-Type': 'multipart/form-data',
+  });
+  return this.http.post(`https://localhost:7197/api/user/RegisterDoctorImg/${doctorId}`, formData,{ headers });
 }
 }
