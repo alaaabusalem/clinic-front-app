@@ -17,7 +17,7 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AuthIntercepters } from './shared/loading/auth.intercepter';
 import { DatePipe } from '@angular/common';
 import {ManagerGuard} from './shared/loading/manager-guard.service'
-
+import{ReactiveFormsModule} from '@angular/forms'
 
 @NgModule({
   declarations: [
@@ -37,7 +37,7 @@ import {ManagerGuard} from './shared/loading/manager-guard.service'
     AppRouting,
     HttpClientModule,
     FormsModule,
-    
+    ReactiveFormsModule
   ],
   providers: [
     {

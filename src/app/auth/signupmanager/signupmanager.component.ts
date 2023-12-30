@@ -6,7 +6,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 @Component({
   selector: 'app-signupmanager',
   templateUrl: './signupmanager.component.html',
-  styleUrl: './signupmanager.component.css'
+  styleUrl: '../auth.component.css'
 })
 export class SignupmanagerComponent {
   @ViewChild('form',{ static: true }) form:NgForm;
